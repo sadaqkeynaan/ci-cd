@@ -1,4 +1,4 @@
-name: Python application
+name: Python Playwright CI
 
 on:
   push:
@@ -22,11 +22,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install playwright
+        pip install playwright flake8
         python -m playwright install
+
+    - name: Lint with flake8
+      run: |
+        flake8 .  # kör linter på hela projektet
 
     - name: Run tests
       run: |
-        python -m pytest
-
-        
+        python -m pytest tests/
